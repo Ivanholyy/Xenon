@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 3.5)
+
+project(Xenon VERSION 0.0.0)
+
+find_package(OpenGL REQUIRED)
+
+set(SRC src)
+
+set(INCLUDE include)
+
+set(SOURCE_FILES
+    ${SRC}/main.cpp
+    ${INCLUDE}/glad/glad.c
+)
+
+set(HEADER_FILES
+    ${INCLUDE}/glad/glad.h
+)
+
+add_executable(Xenon
+    ${SOURCE_FILES}
+    ${HEADER_FILES}
+)
+
+target_link_libraries(Xenon
+	PUBLIC
+		#opengl32
+		#glew32
+		glfw
+		OpenGL::GL
+)
+
+target_include_directories(Xenon
+	PUBLIC
+	${CMAKE_SOURCE_DIR}/external/glew/include
+	${CMAKE_SOURCE_DIR}/external/glfw/include
+	${CMAKE_SOURCE_DIR}/external/glm
+	${CMAKE_SOURCE_DIR}/external/stb
+	${CMAKE_SOURCE_DIR}/include
+)
