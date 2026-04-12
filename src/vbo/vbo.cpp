@@ -1,8 +1,8 @@
 #include "vbo.h"
 
-void VBO::Create() {
+void CVBO::Create() {
 
-    glGenBuffers(1, &VBO::VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO::VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), m_vertices, m_usage);
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * sizeof(float), m_vertices.data(), m_usage);
 }

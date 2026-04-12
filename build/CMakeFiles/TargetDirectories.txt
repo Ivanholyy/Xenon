@@ -1,3 +1,0 @@
-/home/ivan_holy/Desktop/Projects/Xenon/build/CMakeFiles/Xenon.dir
-/home/ivan_holy/Desktop/Projects/Xenon/build/CMakeFiles/edit_cache.dir
-/home/ivan_holy/Desktop/Projects/Xenon/build/CMakeFiles/rebuild_cache.dir

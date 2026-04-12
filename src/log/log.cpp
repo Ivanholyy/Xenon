@@ -1,19 +1,25 @@
 #include "log.h"
+#include "../file.h"
 #include <cstdio>
 #include <dirent.h>
-#include <iostream>
+#include <errno.h>
 
-void Log(char *buf, int line, char* file) {
+void Log(const std::string &buf, int line, const std::string &file) {
 
-    std::cout << "An error occured on line " << line << " in file (" << file << "):" << buf << std::endl;
+    std::string str = "An error occured on line " + std::to_string(line) +
+                      " in file (" + file + "): " +
+                      buf + "\n";
 
-    DIR *dir = opendir("log");
+    std::cout << str;
 
-    if (dir) {
-        FILE *f = fopen("log.txt", "w");
-        if (f) {
-
+    if (direxists("log")) {
+        CFile log("log/log.log", "a");
+        log.wfile(str);
+    }
+    else {
+        if (creatdir("log") == 0) {
+            CFile log("log/log.log", "a");
+            log.wfile(str);
         }
     }
-
 }

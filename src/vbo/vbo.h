@@ -1,17 +1,24 @@
-#include <glad/glad.h>
+#ifndef VBO_H
+#define VBO_H 1
 
-class VBO {
+#include <glad/glad.h>
+#include <vector>
+
+class CVBO {
 
 public:
-    VBO(float vertices[], GLenum usage) {
-        m_vertices = vertices;
-        m_usage = usage;
-    }
+    CVBO(const std::vector<float> &vertices, GLenum usage)
+       : m_vertices(vertices), m_usage(usage) {}
+
     void Create();
 
-    unsigned int VBO;
-
+    inline unsigned int getvbo() const {
+        return VBO;
+    }
 private:
-    float m_vertices[];
+    std::vector<float> m_vertices;
+    unsigned int VBO;
     GLenum m_usage;
-}
+};
+
+#endif

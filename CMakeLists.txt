@@ -11,10 +11,18 @@ set(INCLUDE include)
 set(SOURCE_FILES
     ${SRC}/main.cpp
     ${INCLUDE}/glad/glad.c
+    ${SRC}/log/log.cpp
+    ${SRC}/shaders/shader.cpp
+    ${SRC}/vbo/vbo.cpp
+    ${SRC}/file.cpp
 )
 
 set(HEADER_FILES
     ${INCLUDE}/glad/glad.h
+    ${SRC}/log/log.h
+    ${SRC}/shaders/shader.h
+    ${SRC}/vbo/vbo.h
+    ${SRC}/file.h
 )
 
 add_executable(Xenon
@@ -23,18 +31,18 @@ add_executable(Xenon
 )
 
 target_link_libraries(Xenon
-	PUBLIC
-		#opengl32
-		#glew32
-		glfw
-		OpenGL::GL
+ PUBLIC
+  #opengl32
+  #glew32
+  glfw
+  OpenGL::GL
 )
 
 target_include_directories(Xenon
-	PUBLIC
-	${CMAKE_SOURCE_DIR}/external/glew/include
-	${CMAKE_SOURCE_DIR}/external/glfw/include
-	${CMAKE_SOURCE_DIR}/external/glm
-	${CMAKE_SOURCE_DIR}/external/stb
-	${CMAKE_SOURCE_DIR}/include
+ PUBLIC
+ ${CMAKE_SOURCE_DIR}/external/glew/include
+ ${CMAKE_SOURCE_DIR}/external/glfw/include
+ ${CMAKE_SOURCE_DIR}/external/glm
+ ${CMAKE_SOURCE_DIR}/external/stb
+ ${CMAKE_SOURCE_DIR}/include
 )

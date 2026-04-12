@@ -1,11 +1,12 @@
-#include "vertex.h"
+#include "shader.h"
 #include "../log/log.h"
 
-int Shader::Compile() {
+int CShader::Compile() {
 
     shader = glCreateShader(m_shaderType);
 
-    glShaderSource(shader, 1, &m_buf, NULL);
+    const char* src = m_buf.c_str();
+    glShaderSource(shader, 1, &src, NULL);
     glCompileShader(shader);
 
     int  success;
