@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+const std::string sym[10] = { "a", "w", "w+", "a+", "wb", "ab", "w+b", "a+b", "wb+", "ab+" };
+const std::string sym1[5] = { "r", "r+", "rb", "r+b", "rb+" };
+
 class CFile {
 
 public:
@@ -14,9 +17,8 @@ public:
     }
 
     ~CFile() {
-        if (m_file != NULL) {
+        if (m_file != NULL)
             fclose(m_file);
-        }
     }
 
     int rfile(std::string &_buf);

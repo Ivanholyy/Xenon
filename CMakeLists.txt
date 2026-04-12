@@ -15,6 +15,10 @@ set(SOURCE_FILES
     ${SRC}/shaders/shader.cpp
     ${SRC}/vbo/vbo.cpp
     ${SRC}/file.cpp
+    ${SRC}/shaders/program.cpp
+    ${SRC}/vao/vao.cpp
+    ${SRC}/window/window.cpp
+    ${SRC}/engine.cpp
 )
 
 set(HEADER_FILES
@@ -23,6 +27,10 @@ set(HEADER_FILES
     ${SRC}/shaders/shader.h
     ${SRC}/vbo/vbo.h
     ${SRC}/file.h
+    ${SRC}/shaders/program.h
+    ${SRC}/vao/vao.h
+    ${SRC}/window/window.h
+    ${SRC}/engine.h
 )
 
 add_executable(Xenon

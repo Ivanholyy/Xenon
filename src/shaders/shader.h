@@ -7,8 +7,8 @@
 class CShader {
 
 public:
-    CShader(const std::string &buf, GLenum shadertype)
-          : m_buf(buf), m_shaderType(shadertype) {}
+    CShader(const std::string &filename, GLenum shadertype)
+          : m_filename(filename), m_shaderType(shadertype) {}
 
     int Compile();
 
@@ -16,9 +16,10 @@ public:
         return shader;
     }
 private:
-    std::string m_buf;
+    std::string m_filename;
     GLenum m_shaderType;
     unsigned int shader;
+    std::string buf;
 };
 
 #endif

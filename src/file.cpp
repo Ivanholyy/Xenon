@@ -4,8 +4,16 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include "log/log.h"
 
 int CFile::rfile(std::string &_buf) {
+
+    for (int i = 0; i < 10; i++) {
+        if (m_mode == sym[i]) {
+            Log("Can't use this mode with read function!", __LINE__, __FILE__, __PRETTY_FUNCTION__);
+            return -1;
+        }
+    }
 
     fseek(m_file, 0, SEEK_END);
     int sz = ftell(m_file);
@@ -25,6 +33,13 @@ int CFile::rfile(std::string &_buf) {
 
 int CFile::wfile(const std::string &_buf) {
 
+    for (int i = 0; i < 5; i++) {
+        if (m_mode == sym1[i]) {
+            Log("Can't use this mode with write function!", __LINE__, __FILE__, __PRETTY_FUNCTION__);
+            return -1;
+        }
+    }
+
     int cnt = fwrite(_buf.data(), sizeof(char), _buf.size(), m_file);
 
     if (cnt < _buf.size())
@@ -38,7 +53,7 @@ int CFile::reopen(const std::string &mode) {
     FILE *newf = freopen(m_filename.c_str(), mode.c_str(), m_file);
 
     if (newf == NULL) {
-        std::cout << "Error in opening file!" << std::endl;
+        Log("Error in opening file!", __LINE__, __FILE__, __PRETTY_FUNCTION__);
         return -1;
     }
 
