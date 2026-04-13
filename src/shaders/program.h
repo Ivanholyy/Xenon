@@ -14,6 +14,8 @@ public:
             glDeleteShader(m_vertexshader);
             glDeleteShader(m_fragmentshader);
         }
+        if (m_shaderprogram)
+            glDeleteProgram(m_shaderprogram);
     }
 
     int Create();

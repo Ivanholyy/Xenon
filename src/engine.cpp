@@ -2,7 +2,7 @@
 #include "engine.h"
 #include "log/log.h"
 #include "shaders/shader.h"
-#include "vbo/vbo.h"
+#include "buffer/buffer.h"
 #include "shaders/program.h"
 #include "vao/vao.h"
 
@@ -23,18 +23,6 @@ int CEngine::Init() {
 
 int CEngine::Run() {
 
-    std::vector<float> vertices = {
-        -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-         0.0f,  0.5f, 0.0f
-    };
-
-    CVBO vbo(vertices, GL_STATIC_DRAW);
-
-    vbo.Create();
-
-    unsigned int vao = creatvao();
-
     CShader vertexshader("../src/shaders/vertex/vertexshader.glsl", GL_VERTEX_SHADER);
 
     if (vertexshader.Compile() == -1)
@@ -50,6 +38,33 @@ int CEngine::Run() {
     if (shaderprogram.Create() == -1)
         return -1;
 
+    std::vector<float> vertices = {
+        0.5f,  0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+        -0.5f,  0.5f, 0.0f
+    };
+
+    std::vector<unsigned int> indices = {
+        0, 1, 3,
+        1, 2, 3
+    };
+
+    CVao vao;
+
+    glBindVertexArray(vao.getvao());
+
+    CBuffer vbo(vertices, GL_STATIC_DRAW);
+
+    CBuffer ebo(indices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glBindVertexArray(0);
+
     while (!glfwWindowShouldClose(m_window.getwindow()))
     {
         m_window.processInput(m_window.getwindow());
@@ -57,16 +72,11 @@ int CEngine::Run() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glBindVertexArray(vao);
-
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
-
         glUseProgram(shaderprogram.getshaderprogram());
 
-        glBindVertexArray(vao);
+        glBindVertexArray(vao.getvao());
 
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(m_window.getwindow());
         glfwPollEvents();

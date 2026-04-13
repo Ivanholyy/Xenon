@@ -13,10 +13,8 @@ set(SOURCE_FILES
     ${INCLUDE}/glad/glad.c
     ${SRC}/log/log.cpp
     ${SRC}/shaders/shader.cpp
-    ${SRC}/vbo/vbo.cpp
     ${SRC}/file.cpp
     ${SRC}/shaders/program.cpp
-    ${SRC}/vao/vao.cpp
     ${SRC}/window/window.cpp
     ${SRC}/engine.cpp
 )
@@ -25,12 +23,12 @@ set(HEADER_FILES
     ${INCLUDE}/glad/glad.h
     ${SRC}/log/log.h
     ${SRC}/shaders/shader.h
-    ${SRC}/vbo/vbo.h
+    ${SRC}/buffer/buffer.h
     ${SRC}/file.h
     ${SRC}/shaders/program.h
-    ${SRC}/vao/vao.h
     ${SRC}/window/window.h
     ${SRC}/engine.h
+    ${SRC}/vao/vao.h
 )
 
 add_executable(Xenon
