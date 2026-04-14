@@ -5,8 +5,14 @@
 #include "buffer/buffer.h"
 #include "shaders/program.h"
 #include "vao/vao.h"
+#include "file.h"
 
 int CEngine::Init() {
+
+    if (fileexists("log/log.log")) {
+        if (remove("log/log.log") != 0)
+            std::cout << "Error while removing log file!" << std::endl;
+    }
 
     if (m_window.Create(800, 600, "Xenon") == -1) {
         return -1;
@@ -14,7 +20,7 @@ int CEngine::Init() {
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        Log("Failed to initialize GLAD", __LINE__, __FILE__, __PRETTY_FUNCTION__);
+        Log("Failed to initialize GLAD", __LINE__, __FILE__, __PRETTY_FUNCTION__, __DATE__, __TIME__);
         return -1;
     }
 
@@ -41,8 +47,8 @@ int CEngine::Run() {
     std::vector<float> vertices = {
         0.5f,  0.5f, 0.0f,
         0.5f, -0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f,
-        -0.5f,  0.5f, 0.0f
+       -0.5f, -0.5f, 0.0f,
+       -0.5f,  0.5f, 0.0f
     };
 
     std::vector<unsigned int> indices = {

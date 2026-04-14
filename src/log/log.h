@@ -3,6 +3,6 @@
 
 #include <iostream>
 
-void Log(const std::string &buf, int line, const std::string &file, const std::string &func);
+void Log(const std::string &buf, const int line, const std::string &file, const std::string &func, const std::string &date, const std::string &time);
 
 #endif

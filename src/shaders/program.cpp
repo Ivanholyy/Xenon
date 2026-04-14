@@ -16,7 +16,7 @@ int CProgram::Create() {
     glGetProgramiv(m_shaderprogram, GL_LINK_STATUS, &success);
     if (!success) {
         glGetProgramInfoLog(m_shaderprogram, 512, NULL, infoLog);
-        Log(infoLog, __LINE__, __FILE__, __PRETTY_FUNCTION__);
+        Log(infoLog, __LINE__, __FILE__, __PRETTY_FUNCTION__, __DATE__, __TIME__);
         return -1;
     }
 

@@ -10,17 +10,14 @@ class CFile {
 
 public:
     CFile(const std::string &filename, const std::string &mode)
-         : m_filename(filename), m_mode(mode) {
-        m_file = fopen(m_filename.c_str(), m_mode.c_str());
-        if (m_file == NULL)
-            std::cout << "Error in opening file!" << std::endl;
-    }
+         : m_filename(filename), m_mode(mode) {}
 
     ~CFile() {
         if (m_file != NULL)
             fclose(m_file);
     }
 
+    int open();
     int rfile(std::string &_buf);
     int wfile(const std::string &_buf);
     int reopen(const std::string &mode);

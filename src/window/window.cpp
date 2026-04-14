@@ -12,7 +12,7 @@ int CWindow::Create(int width, int height, std::string name) {
     m_window = glfwCreateWindow(width, height, name.c_str(), NULL, NULL);
     if (m_window == NULL)
     {
-        Log("Failed to create GLFW window", __LINE__, __FILE__, __PRETTY_FUNCTION__);
+        Log("Failed to create GLFW window", __LINE__, __FILE__, __PRETTY_FUNCTION__, __DATE__, __TIME__);
         glfwTerminate();
         return -1;
     }

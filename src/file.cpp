@@ -10,7 +10,7 @@ int CFile::rfile(std::string &_buf) {
 
     for (int i = 0; i < 10; i++) {
         if (m_mode == sym[i]) {
-            Log("Can't use this mode with read function!", __LINE__, __FILE__, __PRETTY_FUNCTION__);
+            Log("Can't use this mode with read function!", __LINE__, __FILE__, __PRETTY_FUNCTION__, __DATE__, __TIME__);
             return -1;
         }
     }
@@ -31,11 +31,20 @@ int CFile::rfile(std::string &_buf) {
     return 0;
 }
 
+int CFile::open() {
+
+    m_file = fopen(m_filename.c_str(), m_mode.c_str());
+    if (m_file == NULL)
+        return -1;
+
+    return 0;
+}
+
 int CFile::wfile(const std::string &_buf) {
 
     for (int i = 0; i < 5; i++) {
         if (m_mode == sym1[i]) {
-            Log("Can't use this mode with write function!", __LINE__, __FILE__, __PRETTY_FUNCTION__);
+            Log("Can't use this mode with write function!", __LINE__, __FILE__, __PRETTY_FUNCTION__, __DATE__, __TIME__);
             return -1;
         }
     }
@@ -53,7 +62,7 @@ int CFile::reopen(const std::string &mode) {
     FILE *newf = freopen(m_filename.c_str(), mode.c_str(), m_file);
 
     if (newf == NULL) {
-        Log("Error in opening file!", __LINE__, __FILE__, __PRETTY_FUNCTION__);
+        Log("Error in opening file!", __LINE__, __FILE__, __PRETTY_FUNCTION__, __DATE__, __TIME__);
         return -1;
     }
 
@@ -64,31 +73,28 @@ int CFile::reopen(const std::string &mode) {
 
 bool direxists(const std::string &path) {
 
-    DIR *dir = opendir(path.c_str());
+    struct stat info;
 
-    if (dir)
-        return true;
+    if (stat(path.c_str(), &info) != 0)
+        return false;
 
-    return false;
+    return (info.st_mode & S_IFDIR);
 }
 
 bool fileexists(const std::string &path) {
 
-    FILE *f = fopen(path.c_str(), "r");
-
-    if (f)
-        return true;
-
-    return false;
+    struct stat info;
+    return stat(path.c_str(), &info) == 0 && S_ISREG(info.st_mode);
 }
 
 int creatdir(const std::string &path) {
 
-    if (mkdir(path.c_str(), 755) == 0)
+    if (mkdir(path.c_str(), 0755) == 0)
         return 0;
     else {
+        if (errno == EEXIST)
+            return 0;
         std::cout << "Error in creating directory: " << strerror(errno) << std::endl;
         return -1;
     }
-
 }
