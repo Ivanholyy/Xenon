@@ -2,6 +2,7 @@
 #define PROGRAM_H 1
 
 #include <glad/glad.h>
+#include <iostream>
 
 class CProgram {
 
@@ -19,6 +20,14 @@ public:
     }
 
     int Create();
+    void setbool(const std::string &name, bool value) const;
+    void setint(const std::string &name, int value) const;
+    void setfloat(const std::string &name, float value) const;
+
+    void use() {
+        if (m_shaderprogram)
+            glUseProgram(m_shaderprogram);
+    }
 
     inline unsigned int getshaderprogram() const {
         return m_shaderprogram;

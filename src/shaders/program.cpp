@@ -22,3 +22,18 @@ int CProgram::Create() {
 
     return 0;
 }
+
+void CProgram::setbool(const std::string &name, bool value) const {
+
+    glUniform1i(glGetUniformLocation(m_shaderprogram, name.c_str()), (int)value);
+}
+
+void CProgram::setint(const std::string &name, int value) const {
+
+    glUniform1i(glGetUniformLocation(m_shaderprogram, name.c_str()), value);
+}
+
+void CProgram::setfloat(const std::string &name, float value) const {
+
+    glUniform1f(glGetUniformLocation(m_shaderprogram, name.c_str()), value);
+}
