@@ -3,6 +3,7 @@
 
 #include <glad/glad.h>
 #include <iostream>
+#include <glm/glm.hpp>
 
 class CProgram {
 
@@ -23,6 +24,7 @@ public:
     void setbool(const std::string &name, bool value) const;
     void setint(const std::string &name, int value) const;
     void setfloat(const std::string &name, float value) const;
+    void setmat4(const std::string &name, glm::mat4 matrix);
 
     void use() {
         if (m_shaderprogram)

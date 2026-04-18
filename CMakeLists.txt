@@ -33,6 +33,7 @@ set(HEADER_FILES
     ${SRC}/vao/vao.h
     ${INCLUDE}/stb/stb_image.h
     ${SRC}/texture/texture.h
+    ${INCLUDE}/glm
 )
 
 add_executable(Xenon

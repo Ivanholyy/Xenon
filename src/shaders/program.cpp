@@ -1,5 +1,6 @@
 #include "program.h"
 #include "../log/log.h"
+#include <glm/gtc/type_ptr.hpp>
 
 int CProgram::Create() {
 
@@ -36,4 +37,9 @@ void CProgram::setint(const std::string &name, int value) const {
 void CProgram::setfloat(const std::string &name, float value) const {
 
     glUniform1f(glGetUniformLocation(m_shaderprogram, name.c_str()), value);
+}
+
+void CProgram::setmat4(const std::string &name, glm::mat4 matrix) {
+
+    glUniformMatrix4fv(glGetUniformLocation(m_shaderprogram, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
 }

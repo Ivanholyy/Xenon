@@ -7,6 +7,7 @@
 #include "vao/vao.h"
 #include "file.h"
 #include "texture/texture.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 int CEngine::Init() {
 
@@ -100,6 +101,12 @@ int CEngine::Run() {
         glClear(GL_COLOR_BUFFER_BIT);
 
         shaderprogram.use();
+
+        glm::mat4 trans = glm::mat4(1.0f);
+        trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+        trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+
+        shaderprogram.setmat4("transform", trans);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture.gettexture());
