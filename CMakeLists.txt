@@ -17,6 +17,8 @@ set(SOURCE_FILES
     ${SRC}/shaders/program.cpp
     ${SRC}/window/window.cpp
     ${SRC}/engine.cpp
+    ${SRC}/texture/texture.cpp
+    ${INCLUDE}/stb/stb_image.cpp
 )
 
 set(HEADER_FILES
@@ -29,6 +31,8 @@ set(HEADER_FILES
     ${SRC}/window/window.h
     ${SRC}/engine.h
     ${SRC}/vao/vao.h
+    ${INCLUDE}/stb/stb_image.h
+    ${SRC}/texture/texture.h
 )
 
 add_executable(Xenon

@@ -6,6 +6,7 @@
 #include "shaders/program.h"
 #include "vao/vao.h"
 #include "file.h"
+#include "texture/texture.h"
 
 int CEngine::Init() {
 
@@ -45,10 +46,10 @@ int CEngine::Run() {
         return -1;
 
     std::vector<float> vertices = {
-        0.5f,  0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-       -0.5f, -0.5f, 0.0f,
-       -0.5f,  0.5f, 0.0f
+        0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,
+        0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,
+       -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,
+       -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f
     };
 
     std::vector<unsigned int> indices = {
@@ -58,18 +59,38 @@ int CEngine::Run() {
 
     CVao vao;
 
-    glBindVertexArray(vao.getvao());
+    vao.bind();
 
     CBuffer vbo(vertices, GL_STATIC_DRAW);
 
     CBuffer ebo(indices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glBindVertexArray(0);
+
+    CTexture texture;
+
+    texture.Load("textures/wall.jpg", GL_RGB);
+
+    stbi_set_flip_vertically_on_load(true);
+
+    CTexture texture1;
+
+    texture1.Load("textures/awesomeface.png", GL_RGBA);
+
+    shaderprogram.use();
+    shaderprogram.setint("texture1", 0);
+    shaderprogram.setint("texture2", 1);
 
     while (!glfwWindowShouldClose(m_window.getwindow()))
     {
@@ -80,7 +101,12 @@ int CEngine::Run() {
 
         shaderprogram.use();
 
-        glBindVertexArray(vao.getvao());
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture.gettexture());
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, texture1.gettexture());
+
+        vao.bind();
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 

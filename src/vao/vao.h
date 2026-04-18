@@ -14,6 +14,10 @@ public:
         glDeleteVertexArrays(1, &m_vao);
     }
 
+    void bind() {
+        glBindVertexArray(m_vao);
+    }
+
     inline unsigned int getvao() const {
         return m_vao;
     }
