@@ -20,6 +20,9 @@ int CWindow::Create(int width, int height, std::string name) {
     glfwMakeContextCurrent(m_window);
     glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
 
+    m_width = width;
+    m_height = height;
+
     return 0;
 }
 

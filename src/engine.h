@@ -1,7 +1,7 @@
 #ifndef ENGINE_H
 #define ENGINE_H 1
 
-#include "window/window.h"
+#include "window/gui/gui.h"
 
 class CEngine {
 
@@ -11,6 +11,7 @@ public:
 
 private:
     CWindow m_window;
+    CGUI gui;
 };
 
 #endif

@@ -19,6 +19,14 @@ set(SOURCE_FILES
     ${SRC}/engine.cpp
     ${SRC}/texture/texture.cpp
     ${INCLUDE}/stb/stb_image.cpp
+    ${INCLUDE}/imgui/imgui.cpp
+    ${INCLUDE}/imgui/imgui_demo.cpp
+    ${INCLUDE}/imgui/imgui_draw.cpp
+    ${INCLUDE}/imgui/imgui_impl_glfw.cpp
+    ${INCLUDE}/imgui/imgui_impl_opengl3.cpp
+    ${INCLUDE}/imgui/imgui_tables.cpp
+    ${INCLUDE}/imgui/imgui_widgets.cpp
+    ${SRC}/window/gui/gui.cpp
 )
 
 set(HEADER_FILES
@@ -34,6 +42,16 @@ set(HEADER_FILES
     ${INCLUDE}/stb/stb_image.h
     ${SRC}/texture/texture.h
     ${INCLUDE}/glm
+    ${INCLUDE}/imgui/imconfig.h
+    ${INCLUDE}/imgui/imgui.h
+    ${INCLUDE}/imgui/imgui_impl_glfw.h
+    ${INCLUDE}/imgui/imgui_impl_opengl3.h
+    ${INCLUDE}/imgui/imgui_internal.h
+    ${INCLUDE}/imgui/imstb_rectpack.h
+    ${INCLUDE}/imgui/imstb_textedit.h
+    ${INCLUDE}/imgui/imstb_truetype.h
+    ${INCLUDE}/imgui/imgui_impl_opengl3_loader.h
+    ${SRC}/window/gui/gui.h
 )
 
 add_executable(Xenon

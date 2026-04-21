@@ -17,14 +17,27 @@ public:
         #endif
     }
 
+    ~CWindow() {
+        glfwTerminate();
+    }
+
     int Create(int width, int height, std::string name);
     void processInput(GLFWwindow *window);
     inline GLFWwindow *getwindow() const {
         return m_window;
     }
 
+    inline int getwidth() const {
+        return m_width;
+    }
+
+    inline int getheight() const {
+        return m_height;
+    }
 private:
     GLFWwindow *m_window;
+    int m_width;
+    int m_height;
 };
 
 #endif

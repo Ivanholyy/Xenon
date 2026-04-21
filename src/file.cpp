@@ -71,6 +71,35 @@ int CFile::reopen(const std::string &mode) {
     return 0;
 }
 
+bool isdirectory(const std::string &name)
+{
+
+    struct stat s;
+    if (stat(name.c_str(), &s) == 0)
+        return S_ISDIR(s.st_mode);
+
+    return false;
+}
+
+bool isimage(const std::string &name)
+{
+
+    const std::string &ext = strrchr(name.c_str(), '.');
+    if (!ext.c_str()) return false;
+
+    if (strcasecmp(ext.c_str(), ".png") == 0) return true;
+    if (strcasecmp(ext.c_str(), ".jpg") == 0) return true;
+    if (strcasecmp(ext.c_str(), ".jpeg") == 0) return true;
+    if (strcasecmp(ext.c_str(), ".bmp") == 0) return true;
+    if (strcasecmp(ext.c_str(), ".tga") == 0) return true;
+    if (strcasecmp(ext.c_str(), ".psd") == 0) return true;
+    if (strcasecmp(ext.c_str(), ".hdr") == 0) return true;
+    if (strcasecmp(ext.c_str(), ".pic") == 0) return true;
+    if (strcasecmp(ext.c_str(), ".pnm") == 0) return true;
+
+    return false;
+}
+
 bool direxists(const std::string &path) {
 
     struct stat info;

@@ -8,6 +8,10 @@
 #include "file.h"
 #include "texture/texture.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw.h>
+#include <imgui/imgui_internal.h>
+#include <imgui/imgui_impl_opengl3.h>
 
 int CEngine::Init() {
 
@@ -25,6 +29,8 @@ int CEngine::Init() {
         Log("Failed to initialize GLAD", __LINE__, __FILE__, __PRETTY_FUNCTION__, __DATE__, __TIME__);
         return -1;
     }
+
+    gui.Init(&m_window);
 
     return 0;
 }
@@ -97,8 +103,12 @@ int CEngine::Run() {
     {
         m_window.processInput(m_window.getwindow());
 
+        gui.Begin();
+
+        gui.Setup();
+
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shaderprogram.use();
 
@@ -117,10 +127,13 @@ int CEngine::Run() {
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+        gui.Draw();
+
+        gui.End();
+
         glfwSwapBuffers(m_window.getwindow());
         glfwPollEvents();
     }
 
-    glfwTerminate();
     return 0;
 }

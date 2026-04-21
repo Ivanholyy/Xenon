@@ -30,5 +30,7 @@ private:
 bool direxists(const std::string &path);
 int creatdir(const std::string &path);
 bool fileexists(const std::string &path);
+bool isdirectory(const std::string &name);
+bool isimage(const std::string &name);
 
 #endif
