@@ -94,7 +94,6 @@ void CGUI::Init(CWindow *window) {
     glGenRenderbuffers(1, &m_rbo);
 
     m_viewportsize = {(float)m_window->getwidth(), (float)m_window->getheight()};
-
 }
 
 void setupdockspace(ImGuiID dockspace_id) {

@@ -3,6 +3,7 @@
 
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "../camera/camera.h"
 
 class CWindow {
 
@@ -23,6 +24,9 @@ public:
 
     int Create(int width, int height, std::string name);
     void processInput(GLFWwindow *window);
+    static void mouse_callback(GLFWwindow *window, double xposin, double yposin);
+    static void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
+
     inline GLFWwindow *getwindow() const {
         return m_window;
     }
@@ -34,10 +38,21 @@ public:
     inline int getheight() const {
         return m_height;
     }
+
+    inline CCamera &getcamera() {
+        return m_camera;
+    }
+
+    float m_deltatime = 0.0f;
+
 private:
     GLFWwindow *m_window;
+    CCamera m_camera;
     int m_width;
     int m_height;
+    bool m_firstmouse = true;
+    float m_lastx;
+    float m_lasty;
 };
 
 #endif

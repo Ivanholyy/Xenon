@@ -39,7 +39,32 @@ void CProgram::setfloat(const std::string &name, float value) const {
     glUniform1f(glGetUniformLocation(m_shaderprogram, name.c_str()), value);
 }
 
-void CProgram::setmat4(const std::string &name, glm::mat4 matrix) {
+void CProgram::setvec2(const std::string &name, const glm::vec2 value) const {
 
-    glUniformMatrix4fv(glGetUniformLocation(m_shaderprogram, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
+    glUniform2fv(glGetUniformLocation(m_shaderprogram, name.c_str()), 1, glm::value_ptr(value));
+}
+
+void CProgram::setvec3(const std::string &name, const glm::vec3 value) const {
+
+    glUniform3fv(glGetUniformLocation(m_shaderprogram, name.c_str()), 1, glm::value_ptr(value));
+}
+
+void CProgram::setvec4(const std::string &name, const glm::vec4 value) const {
+
+    glUniform4fv(glGetUniformLocation(m_shaderprogram, name.c_str()), 1, glm::value_ptr(value));
+}
+
+void CProgram::setmat2(const std::string &name, const glm::mat2 mat) const {
+
+    glUniformMatrix2fv(glGetUniformLocation(m_shaderprogram, name.c_str()), 1, GL_FALSE, glm::value_ptr(mat));
+}
+
+void CProgram::setmat3(const std::string &name, const glm::mat3 mat) const {
+
+    glUniformMatrix3fv(glGetUniformLocation(m_shaderprogram, name.c_str()), 1, GL_FALSE, glm::value_ptr(mat));
+}
+
+void CProgram::setmat4(const std::string &name, const glm::mat4 mat) const {
+
+    glUniformMatrix4fv(glGetUniformLocation(m_shaderprogram, name.c_str()), 1, GL_FALSE, glm::value_ptr(mat));
 }

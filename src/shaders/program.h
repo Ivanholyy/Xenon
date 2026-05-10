@@ -24,7 +24,13 @@ public:
     void setbool(const std::string &name, bool value) const;
     void setint(const std::string &name, int value) const;
     void setfloat(const std::string &name, float value) const;
-    void setmat4(const std::string &name, glm::mat4 matrix);
+    void setmat4(const std::string &name, const glm::mat4 mat) const;
+    void setmat3(const std::string &name, const glm::mat3 mat) const;
+    void setmat2(const std::string &name, const glm::mat2 mat) const;
+    void setvec4(const std::string &name, const glm::vec4 value) const;
+    void setvec3(const std::string &name, const glm::vec3 value) const;
+    void setvec2(const std::string &name, const glm::vec2 value) const;
+
 
     void use() {
         if (m_shaderprogram)

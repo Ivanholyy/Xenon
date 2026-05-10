@@ -12,6 +12,8 @@ public:
 private:
     CWindow m_window;
     CGUI gui;
+    float m_deltatime = 0.0f;
+    float m_lastframe = 0.0f;
 };
 
 #endif
