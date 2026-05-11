@@ -141,9 +141,6 @@ int CEngine::Run() {
     shaderprogram.setint("texture1", 0);
     shaderprogram.setint("texture2", 1);
 
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)m_window.getwidth() / (float)m_window.getheight(), 0.1f, 100.0f);
-    shaderprogram.setmat4("projection", projection);
-
     while (!glfwWindowShouldClose(m_window.getwindow()))
     {
         m_window.processInput(m_window.getwindow());

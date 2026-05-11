@@ -28,6 +28,7 @@ set(SOURCE_FILES
     ${INCLUDE}/imgui/imgui_widgets.cpp
     ${SRC}/window/gui/gui.cpp
     ${SRC}/camera/camera.cpp
+    ${SRC}/cvar/cvar.cpp
 )
 
 set(HEADER_FILES
@@ -54,6 +55,7 @@ set(HEADER_FILES
     ${INCLUDE}/imgui/imgui_impl_opengl3_loader.h
     ${SRC}/window/gui/gui.h
     ${SRC}/camera/camera.h
+    ${SRC}/cvar/cvar.h
 )
 
 add_executable(Xenon

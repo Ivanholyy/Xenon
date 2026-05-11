@@ -180,7 +180,31 @@ void CGUI::Setup() {
 
     ImGui::End();
 
+    static bool viewportfocused = false;
+
     ImGui::Begin("Viewport");
+
+    bool hovered = ImGui::IsWindowHovered();
+
+    if (hovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
+        viewportfocused = true;
+
+        glfwSetInputMode(
+            m_window->getwindow(),
+            GLFW_CURSOR,
+            GLFW_CURSOR_DISABLED
+        );
+    }
+
+    if (glfwGetKey(m_window->getwindow(), GLFW_KEY_Q) == GLFW_PRESS) {
+        viewportfocused = false;
+
+        glfwSetInputMode(
+            m_window->getwindow(),
+            GLFW_CURSOR,
+            GLFW_CURSOR_NORMAL
+        );
+    }
 
     m_size = ImGui::GetContentRegionAvail();
 

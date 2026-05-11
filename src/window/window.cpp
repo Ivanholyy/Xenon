@@ -9,7 +9,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void CWindow::mouse_callback(GLFWwindow *window, double xposin, double yposin) {
 
-    CWindow* self = static_cast<CWindow*>(glfwGetWindowUserPointer(window));
+    CWindow *self = static_cast<CWindow*>(glfwGetWindowUserPointer(window));
 
     float xpos = static_cast<float>(xposin);
     float ypos = static_cast<float>(yposin);
