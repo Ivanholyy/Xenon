@@ -6,7 +6,7 @@
 cvar_t *cvar_vars;
 char *cvar_null_string = "";
 
-cvar_t *cvar_findvar(char *var_name) {
+cvar_t *cvar_findvar(const char *var_name) {
 
 	cvar_t *var;
 
@@ -17,7 +17,7 @@ cvar_t *cvar_findvar(char *var_name) {
 	return NULL;
 }
 
-float cvar_variablevalue(char *var_name) {
+float cvar_variablevalue(const char *var_name) {
 
 	cvar_t *var;
 
@@ -29,7 +29,7 @@ float cvar_variablevalue(char *var_name) {
 	return atof(var->string);
 }
 
-char *cvar_variablestring(char *var_name) {
+char *cvar_variablestring(const char *var_name) {
 
 	cvar_t *var;
 
@@ -41,7 +41,7 @@ char *cvar_variablestring(char *var_name) {
 	return var->string;
 }
 
-char *cvar_completevariable(char *partial) {
+char *cvar_completevariable(const char *partial) {
 
 	cvar_t *cvar;
 	int	len;
@@ -58,16 +58,15 @@ char *cvar_completevariable(char *partial) {
 	return NULL;
 }
 
-void cvar_set(char *var_name, char *value) {
+void cvar_set(const char *var_name, const char *value) {
 
 	cvar_t *var;
 	bool changed;
 
 	var = cvar_findvar(var_name);
 
-	std::string buf = std::string("Variable ") + var_name + " not found";
-
 	if (!var) {
+	    std::string buf = std::string("Variable ") + var_name + " not found";
 		Log(buf, __LINE__, __FILE__, __PRETTY_FUNCTION__, __DATE__, __TIME__);
 		return;
 	}
@@ -89,7 +88,7 @@ void cvar_set(char *var_name, char *value) {
 	}*/
 }
 
-void cvar_setvalue(char *var_name, float value) {
+void cvar_setvalue(const char *var_name, float value) {
 
 	char val[32];
 

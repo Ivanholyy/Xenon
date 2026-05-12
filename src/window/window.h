@@ -43,14 +43,13 @@ public:
         return m_camera;
     }
 
-    float m_deltatime = 0.0f;
+    bool m_firstmouse = true;
 
 private:
     GLFWwindow *m_window;
     CCamera m_camera;
     int m_width;
     int m_height;
-    bool m_firstmouse = true;
     float m_lastx;
     float m_lasty;
 };

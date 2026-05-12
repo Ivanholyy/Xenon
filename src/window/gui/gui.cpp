@@ -1,8 +1,10 @@
 #include "gui.h"
 #include "../../log/log.h"
+#include "../../cvar/cvar.h"
 #include <vector>
 
 extern std::vector<std::string> logbuf;
+cvar_t cv_viewporthovered = {"gui_viewporthovered", "0", false, false, 0};
 
 void CGUI::Init(CWindow *window) {
 
@@ -94,6 +96,8 @@ void CGUI::Init(CWindow *window) {
     glGenRenderbuffers(1, &m_rbo);
 
     m_viewportsize = {(float)m_window->getwidth(), (float)m_window->getheight()};
+
+    cvar_registervariable(&cv_viewporthovered);
 }
 
 void setupdockspace(ImGuiID dockspace_id) {
@@ -180,31 +184,9 @@ void CGUI::Setup() {
 
     ImGui::End();
 
-    static bool viewportfocused = false;
-
     ImGui::Begin("Viewport");
 
-    bool hovered = ImGui::IsWindowHovered();
-
-    if (hovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
-        viewportfocused = true;
-
-        glfwSetInputMode(
-            m_window->getwindow(),
-            GLFW_CURSOR,
-            GLFW_CURSOR_DISABLED
-        );
-    }
-
-    if (glfwGetKey(m_window->getwindow(), GLFW_KEY_Q) == GLFW_PRESS) {
-        viewportfocused = false;
-
-        glfwSetInputMode(
-            m_window->getwindow(),
-            GLFW_CURSOR,
-            GLFW_CURSOR_NORMAL
-        );
-    }
+    cvar_set("gui_viewporthovered", ImGui::IsWindowHovered() ? "1" : "0");
 
     m_size = ImGui::GetContentRegionAvail();
 

@@ -13,13 +13,13 @@ typedef struct cvar_s {
 } cvar_t;
 
 void cvar_registervariable(cvar_t *variable);
-void cvar_set(char *var_name, char *value);
-void cvar_setvalue(char *var_name, float value);
-float cvar_variablevalue(char *var_name);
-char *cvar_variablestring(char *var_name);
-char *cvar_completevariable(char *partial);
+void cvar_set(const char *var_name, const char *value);
+void cvar_setvalue(const char *var_name, float value);
+float cvar_variablevalue(const char *var_name);
+char *cvar_variablestring(const char *var_name);
+char *cvar_completevariable(const char *partial);
 void cvar_writevariables(FILE *f);
-cvar_t *cvar_findvar(char *var_name);
+cvar_t *cvar_findvar(const char *var_name);
 
 extern cvar_t *cvar_vars;
 

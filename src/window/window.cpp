@@ -1,7 +1,8 @@
 #include "window.h"
+#include "../cvar/cvar.h"
 #include "../log/log.h"
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
     // note that width and height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
@@ -20,11 +21,14 @@ void CWindow::mouse_callback(GLFWwindow *window, double xposin, double yposin) {
         self->m_firstmouse = false;
     }
 
-    float xoffset = xpos - self->m_lastx;
-    float yoffset = self->m_lasty - ypos;
+    float xoffset = -(xpos - self->m_lastx);
+    float yoffset = -(self->m_lasty - ypos);
 
     self->m_lastx = xpos;
     self->m_lasty = ypos;
+
+    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) != GLFW_PRESS || !cvar_variablevalue("gui_viewporthovered"))
+        return;
 
     self->m_camera.processmousemovement(xoffset, yoffset);
 }
@@ -32,7 +36,14 @@ void CWindow::mouse_callback(GLFWwindow *window, double xposin, double yposin) {
 void CWindow::scroll_callback(GLFWwindow *window, double xoffset, double yoffset) {
 
     CWindow *self = static_cast<CWindow*>(glfwGetWindowUserPointer(window));
-    self->m_camera.processmousescroll(static_cast<float>(yoffset));
+
+    if (!cvar_variablevalue("gui_viewporthovered"))
+        return;
+
+    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+        self->m_camera.processkeyboard(yoffset > 0 ? FORWARD : BACKWARD, cvar_variablevalue("engine_deltaframe") * 8.0f);
+    else
+        self->m_camera.processmousescroll(static_cast<float>(yoffset));
 }
 
 int CWindow::Create(int width, int height, std::string name) {
@@ -52,8 +63,6 @@ int CWindow::Create(int width, int height, std::string name) {
 
     glfwSetWindowUserPointer(m_window, this);
 
-    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
     m_width = width;
     m_height = height;
 
@@ -64,14 +73,22 @@ int CWindow::Create(int width, int height, std::string name) {
 }
 
 void CWindow::processInput(GLFWwindow *window) {
+
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+
+    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) != GLFW_PRESS || !cvar_variablevalue("gui_viewporthovered"))
+        return;
+
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        m_camera.processkeyboard(FORWARD, m_deltatime);
+        m_camera.processkeyboard(FORWARD, cvar_variablevalue("engine_deltaframe"));
+
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        m_camera.processkeyboard(BACKWARD, m_deltatime);
+        m_camera.processkeyboard(BACKWARD, cvar_variablevalue("engine_deltaframe"));
+
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        m_camera.processkeyboard(LEFT, m_deltatime);
+        m_camera.processkeyboard(LEFT, cvar_variablevalue("engine_deltaframe"));
+
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        m_camera.processkeyboard(RIGHT, m_deltatime);
+        m_camera.processkeyboard(RIGHT, cvar_variablevalue("engine_deltaframe"));
 }

@@ -7,11 +7,14 @@
 #include "vao/vao.h"
 #include "file.h"
 #include "texture/texture.h"
+#include "cvar/cvar.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_internal.h>
 #include <imgui/imgui_impl_opengl3.h>
+
+cvar_t cv_deltaframe = {"engine_deltaframe", "0.0f", false, false, 0.0f};
 
 int CEngine::Init() {
 
@@ -33,6 +36,8 @@ int CEngine::Init() {
     gui.Init(&m_window);
 
     glEnable(GL_DEPTH_TEST);
+
+    cvar_registervariable(&cv_deltaframe);
 
     return 0;
 }
@@ -150,10 +155,8 @@ int CEngine::Run() {
         gui.Setup();
 
         float currentframe = static_cast<float>(glfwGetTime());
-        m_deltatime = currentframe - m_lastframe;
+        cvar_set("engine_deltaframe", std::to_string(currentframe - m_lastframe).c_str());
         m_lastframe = currentframe;
-
-        m_window.m_deltatime = m_deltatime;
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
